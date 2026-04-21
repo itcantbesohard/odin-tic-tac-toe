@@ -52,7 +52,7 @@ header {
     border-radius: 16px;
 }
 
-.score-board {
+.player-board {
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -60,14 +60,14 @@ header {
 }
 
 
-.score-board .player {
+.player-board .player {
     padding-bottom: 6px;
     font-weight: 600;
     color: #999;
 }
 
 
-.score-board .player.active {
+.player-board .player.active {
     color: var(--text);
     border-bottom: 3px solid var(--accent);
 }
@@ -92,16 +92,39 @@ header {
     transition: background-color 0.2s ease;
 }
 
-.cell:hover {
-    cursor: pointer;
-}
-
 .cell:not(:nth-child(3n)) {
     border-right: 2px solid var(--border);
 }
 
 .cell:nth-child(-n + 6) {
     border-bottom: 2px solid var(--border);
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.btn-restart {
+    background: var(--bg);
+    color: var(--subtext);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 2px solid var(--subtext);
+}
+
+.btn-restart:hover {
+    cursor: pointer;
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
 }
 
 footer {
