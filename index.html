@@ -6,16 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
     <title>Tic Tac Toe</title>
 </head>
 
 <body>
     <header>
-        <h1>Tic Tac Toe</h1>
+        <h1 class="title">Tic Tac Toe</h1>
+        <p class="description" ch="40">The goal of the game in tic-tac-toe is to fill an entire row, column, or diagonal
+            with
+            their marks. Play continues until someone achieves this goal.</p>
     </header>
-    <section class="score-board"></section>
-    <section class="game-board"></section>
-    <footer></footer>
+    <section class="game-board">
+        <section class="score-board">
+            <div class="player active">Player</div>
+            <div class="player">Computer</div>
+        </section>
+        <section class="game-grid">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </section>
+    </section>
+    <footer>
+        <p>The Game made with <span>♥</span> by Michał Baran</p>
+    </footer>
 
 </body>
 
