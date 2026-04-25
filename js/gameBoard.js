@@ -16,7 +16,7 @@ const Gameboard = () => {
     return {
         getBoard,
         placeMark,
-        resetBoard,
+        resetBoard
     };
 
 }
