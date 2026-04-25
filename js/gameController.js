@@ -1,5 +1,5 @@
-import Player from "./player";
-import Gameboard from "./gameBoard";
+import Player from "./player.js";
+import Gameboard from "./gameBoard.js";
 
 const GameController = () => {
     const player = Player("Player", "X");
@@ -7,6 +7,8 @@ const GameController = () => {
     const board = Gameboard();
     let gameOver = false;
     let currentPlayer = player;
+
+    const getBoard = () => board.getBoard();
 
     const winPatterns = [
         [0, 1, 2],
@@ -70,7 +72,10 @@ const GameController = () => {
     return {
         checkWin,
         switchPlayer,
-        playRound
+        playRound,
+        getBoard
     }
 
 };
+
+export default GameController;

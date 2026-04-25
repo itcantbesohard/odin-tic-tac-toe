@@ -1,11 +1,9 @@
-import { createElement } from "react";
-
 const DisplayController = () => {
     const gameGrid = document.querySelector(".game-grid");
     const player = document.querySelectorAll(".player");
 
     const renderBoard = (board) => {
-        grid.replaceChildren();
+        gameGrid.replaceChildren();
 
         board.forEach((cell, index) => {
             const div = document.createElement("div");
@@ -28,3 +26,5 @@ const DisplayController = () => {
     }
 
 };
+
+export default DisplayController;

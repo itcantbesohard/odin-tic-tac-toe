@@ -4,3 +4,5 @@ const Player = (name, mark) => {
 
     return { getName, getMark };
 };
+
+export default Player;
