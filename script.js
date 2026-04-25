@@ -8,20 +8,20 @@ const Player = (name, mark) => {
     return { getName, getMark };
 };
 
-const GameBoard = () => {
-    let board = Array(9).fill(null);
+const Gameboard = () => {
+    let board = ["", "", "", "O", "O", "O", "", "", ""];
 
-    const getBoard = () => board.slice();
+    const getBoard = () => board;
 
     const placeMark = (index, mark) => {
-        if (board[index] != null) return false;
+        if (index === null || mark === null) return;
+        if (board[index !== null]) return;
         board[index] = mark;
-        return true;
     };
 
     const resetBoard = () => {
         board = Array(9).fill(null);
-    };
+    }
 
     return {
         getBoard,
@@ -32,71 +32,42 @@ const GameBoard = () => {
 }
 
 const GameController = () => {
+    const player = Player("Player", "X");
+    const computer = Player("Computer", "O");
+    const board = Gameboard();
 
-    const player1 = Player("Player", "X");
-    const player2 = Player("Computer", "O");
+    const winPatterns = [
+        [0, 1, 2],
+        [0, 3, 6],
+        [0, 4, 8],
+        [1, 4, 7],
+        [2, 5, 8],
+        [2, 4, 6],
+        [3, 4, 5],
+        [6, 7, 8]
+    ];
 
-    const players = [player1, player2];
+    const checkWin = () => {
+        let isWin = false;
+        winPatterns.forEach(element => {
+            const cell1 = element[0];
+            const cell2 = element[1];
+            const cell3 = element[2];
+            if (board[cell1] === board[cell2] && board[cell2] === board[cell3]) {
+                isWin = true;
+                return
+            }
 
-    let currentPlayerIndex = 0;
-    let gameOver = false;
-
-    const board = GameBoard();
-
-    const getCurrentPlayer = () => players[currentPlayerIndex];
-
-    const switchPlayer = () => {
-        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
-    };
-
-    const playRound = (index) => {
-        if (gameOver) return;
-        const success = board.placeMark(index, getCurrentPlayer().getMark());
-
-        if (checkWinner()) {
-            gameOver = true;
-            return;
-        }
-
-        //draw 
-        if (board.getBoard().every(cell => cell !== null)) {
-            gameOver = true;
-            return;
-        }
-
-        switchPlayer();
-    };
-
-    const resetGame = () => {
-        board.resetBoard();
-        currentPlayerIndex = 0;
-        gameOver = false;
-    };
-
-    const checkWinner = () => {
-        const b = board.getBoard();
-
-        const winPatterns = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6],
-        ];
-
-        return winPatterns.some(pattern =>
-            pattern.every(index => b[index] === getCurrentPlayer().getMark())
-        );
-
-    };
+        });
+        return isWin;
+    }
 
     return {
-        playRound,
-        getCurrentPlayer,
-        resetGame,
-        getBoard: board.getBoard,
-    };
+        checkWin
+    }
 
-}
+};
 
-gameGrid.addEventListener(click, (e) => {
+const gameController = GameController();
 
-});
+console.log(gameController.checkWin());
