@@ -9,13 +9,13 @@ const Player = (name, mark) => {
 };
 
 const Gameboard = () => {
-    let board = ["", "", "", "O", "O", "O", "", "", ""];
+    let board = ["", "", "", "", "", "", "", "", ""];
 
     const getBoard = () => board;
 
     const placeMark = (index, mark) => {
         if (index === null || mark === null) return;
-        if (board[index !== null]) return;
+        if (board[index] !== null) return;
         board[index] = mark;
     };
 
@@ -35,6 +35,8 @@ const GameController = () => {
     const player = Player("Player", "X");
     const computer = Player("Computer", "O");
     const board = Gameboard();
+    let gameOver = false;
+    let currentPlayer = player;
 
     const winPatterns = [
         [0, 1, 2],
@@ -49,10 +51,12 @@ const GameController = () => {
 
     const checkWin = () => {
         let isWin = false;
+
         winPatterns.forEach(element => {
             const cell1 = element[0];
             const cell2 = element[1];
             const cell3 = element[2];
+
             if (board[cell1] === board[cell2] && board[cell2] === board[cell3]) {
                 isWin = true;
                 return
@@ -60,14 +64,50 @@ const GameController = () => {
 
         });
         return isWin;
+    };
+
+    const switchPlayer = () => {
+        currentPlayer = currentPlayer === player ? computer : player;
+    };
+
+    const playRound = (index) => {
+        if (gameOver) return { status: "gameover" };
+
+        //mark
+        board.placeMark(index, currentPlayer.getMark());
+
+        //checkwin
+        if (checkWin()) {
+            gameOver = true;
+            return { status: "win" };
+        }
+
+        //draw
+        if (board.getBoard().every(cell => cell !== null)) {
+            gameOver = true;
+            return { status: "draw" };
+        }
+
+        switchPlayer();
+        return { status: "continue", currentPlayer }
+    }
+
+    const resetGame = () => {
+        gameOver = false;
+        currentPlayer = player;
+        board.resetBoard();
     }
 
     return {
-        checkWin
+        checkWin,
+        switchPlayer,
+        playRound
     }
 
 };
 
-const gameController = GameController();
+//DisplayController
 
-console.log(gameController.checkWin());
+const game = GameController();
+
+console.log(game.checkWin());
