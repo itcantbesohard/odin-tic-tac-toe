@@ -1,35 +1,5 @@
-const gameGrid = document.querySelector('.game-grid');
-const resetBtn = document.querySelector('.reset-btn');
-
-const Player = (name, mark) => {
-    const getName = () => name;
-    const getMark = () => mark;
-
-    return { getName, getMark };
-};
-
-const Gameboard = () => {
-    let board = ["", "", "", "", "", "", "", "", ""];
-
-    const getBoard = () => board;
-
-    const placeMark = (index, mark) => {
-        if (index === null || mark === null) return;
-        if (board[index] !== null) return;
-        board[index] = mark;
-    };
-
-    const resetBoard = () => {
-        board = Array(9).fill(null);
-    }
-
-    return {
-        getBoard,
-        placeMark,
-        resetBoard,
-    };
-
-}
+import Player from "./player";
+import Gameboard from "./gameBoard";
 
 const GameController = () => {
     const player = Player("Player", "X");
@@ -105,9 +75,3 @@ const GameController = () => {
     }
 
 };
-
-//DisplayController
-
-const game = GameController();
-
-console.log(game.checkWin());
