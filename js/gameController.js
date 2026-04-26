@@ -2,11 +2,11 @@ import Player from "./player.js";
 import Gameboard from "./gameBoard.js";
 
 const GameController = () => {
-    const player = Player("Player", "X");
-    const computer = Player("Computer", "O");
+    const player1 = Player("Player1", "X");
+    const player2 = Player("Player2", "O");
     const gameBoard = Gameboard();
     let gameOver = false;
-    let currentPlayer = player;
+    let currentPlayer = player1;
     let winner = null;
     let result = null;
 
@@ -44,7 +44,7 @@ const GameController = () => {
     };
 
     const switchPlayer = () => {
-        currentPlayer = currentPlayer === player ? computer : player;
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
 
     const playRound = (index) => {
@@ -73,26 +73,29 @@ const GameController = () => {
 
         switchPlayer();
 
-        //computer move
-        if (currentPlayer === computer) {
-            getRandomMove()
-            //playMove
-        }
     }
 
     const getRandomMove = () => {
         const board = getBoard();
-        const emptyCells = [];
-        console.log(emptyCells);
-        //getNotNullBoardSize
-        //getRandomNumber
+        const emptyIndexes = [];
+
+        board.forEach((element, index) => {
+            if (element === null)
+                emptyIndexes.push(index);
+        });
+
+        if (emptyIndexes.length === 0) return;
+
+        const randomIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
+
+        return randomIndex;
     }
 
     const resetGame = () => {
         gameOver = false;
         result = null;
         winner = null;
-        currentPlayer = player;
+        currentPlayer = player1;
         gameBoard.resetBoard();
     }
 
