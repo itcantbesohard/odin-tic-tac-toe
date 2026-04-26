@@ -4,11 +4,11 @@ import Gameboard from "./gameBoard.js";
 const GameController = () => {
     const player = Player("Player", "X");
     const computer = Player("Computer", "O");
-    const board = Gameboard();
+    const gameBoard = Gameboard();
     let gameOver = false;
     let currentPlayer = player;
 
-    const getBoard = () => board.getBoard();
+    const getBoard = () => gameBoard.getBoard();
 
     const winPatterns = [
         [0, 1, 2],
@@ -25,10 +25,13 @@ const GameController = () => {
         let isWin = false;
 
         for (const element of winPatterns) {
-            const cell1 = element[0];
-            const cell2 = element[1];
-            const cell3 = element[2];
-            if (board[cell1] === board[cell2] && board[cell2] === board[cell3]) {
+            const board = gameBoard.getBoard();
+            const [cell1, cell2, cell3] = element;
+
+            if (board[cell1] !== null &&
+                board[cell1] === board[cell2] &&
+                board[cell2] === board[cell3]
+            ) {
                 isWin = true;
                 break;
             }
@@ -46,7 +49,8 @@ const GameController = () => {
         if (gameOver) return { status: "gameover" };
 
         //mark
-        board.placeMark(index, currentPlayer.getMark());
+        gameBoard.placeMark(index,
+            currentPlayer.getMark());
 
         //checkwin
         if (checkWin()) {
@@ -55,7 +59,8 @@ const GameController = () => {
         }
 
         //draw
-        if (board.getBoard().every(cell => cell !== null)) {
+        if (gameBoard.getBoard().every
+            (cell => cell !== null)) {
             gameOver = true;
             return { status: "draw" };
         }
@@ -67,7 +72,7 @@ const GameController = () => {
     const resetGame = () => {
         gameOver = false;
         currentPlayer = player;
-        board.resetBoard();
+        gameBoard.resetBoard();
     }
 
     return {
