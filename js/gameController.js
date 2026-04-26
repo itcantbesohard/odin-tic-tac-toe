@@ -28,7 +28,7 @@ const GameController = () => {
         let isWin = false;
 
         for (const element of winPatterns) {
-            const board = gameBoard.getBoard();
+            const board = getBoard();
             const [cell1, cell2, cell3] = element;
 
             if (board[cell1] !== null &&
@@ -64,7 +64,7 @@ const GameController = () => {
         }
 
         //draw
-        if (gameBoard.getBoard().every
+        if (getBoard().every
             (cell => cell !== null)) {
             gameOver = true;
             result = "draw";
@@ -75,9 +75,17 @@ const GameController = () => {
 
         //computer move
         if (currentPlayer === computer) {
-            //getRandomMove
+            getRandomMove()
             //playMove
         }
+    }
+
+    const getRandomMove = () => {
+        const board = getBoard();
+        const emptyCells = [];
+        console.log(emptyCells);
+        //getNotNullBoardSize
+        //getRandomNumber
     }
 
     const resetGame = () => {
