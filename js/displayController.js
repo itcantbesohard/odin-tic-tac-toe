@@ -16,6 +16,9 @@ const DisplayController = (game) => {
     };
 
     const setActivePlayer = () => {
+        const state = game.getState();
+        if (state.gameOver) return;
+
         player.forEach(el => {
             el.classList.toggle("active");
         });
@@ -23,7 +26,6 @@ const DisplayController = (game) => {
 
     const renderStatus = () => {
         const state = game.getState();
-
         if (!state.gameOver) return;
 
         if (state.result === "draw") {
@@ -37,13 +39,16 @@ const DisplayController = (game) => {
 
     const initEvents = () => {
         gameGrid.addEventListener("click", (e) => {
+            const state = game.getState();
+            if (state.gameOver) return;
+
             console.log("CLICK", e.target)
             const cell = e.target;
             if (!cell.classList.contains("cell")) return;
 
             const index = cell.dataset.index;
-            const round = game.playRound(index);
 
+            game.playRound(index);
             renderStatus();
             renderBoard();
             setActivePlayer();
