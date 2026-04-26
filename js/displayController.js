@@ -1,9 +1,10 @@
-const DisplayController = () => {
+const DisplayController = (game) => {
     const gameGrid = document.querySelector(".game-grid");
     const player = document.querySelectorAll(".player");
 
-    const renderBoard = (board) => {
+    const renderBoard = () => {
         gameGrid.replaceChildren();
+        const board = game.getBoard();
 
         board.forEach((cell, index) => {
             const div = document.createElement("div");
@@ -20,9 +21,22 @@ const DisplayController = () => {
         });
     }
 
+    const initEvents = () => {
+        gameGrid.addEventListener("click", (e) => {
+            console.log("CLICK", e.target)
+            const cell = e.target;
+            if (!cell.classList.contains("cell")) return;
+            //mark
+            const index = cell.dataset.index;
+            game.playRound(index);
+            renderBoard();
+        });
+    };
+
     return {
         renderBoard,
-        setActivePlayer
+        setActivePlayer,
+        initEvents
     }
 
 };

@@ -5,10 +5,9 @@ import Gameboard from "./gameBoard.js";
 const resetBtn = document.querySelector('.reset-btn');
 
 const game = GameController();
-const display = DisplayController();
+const display = DisplayController(game);
 
-display.renderBoard(game.getBoard());
+display.renderBoard();
+display.initEvents();
 
 //display status?
-
-document.querySelector(".game-grid").addEventListener("click", (e) => { });

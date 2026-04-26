@@ -1,5 +1,5 @@
 const Gameboard = () => {
-    let board = ["", "", "", "", "", "", "", "", ""];
+    let board = Array(9).fill(null);
 
     const getBoard = () => board;
 

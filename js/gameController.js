@@ -42,6 +42,7 @@ const GameController = () => {
     };
 
     const playRound = (index) => {
+
         if (gameOver) return { status: "gameover" };
 
         //mark
