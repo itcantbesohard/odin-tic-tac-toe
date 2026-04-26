@@ -100,7 +100,8 @@ const GameController = () => {
         switchPlayer,
         playRound,
         getBoard,
-        getState
+        getState,
+        resetGame
     }
 
 };

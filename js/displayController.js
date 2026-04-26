@@ -1,6 +1,7 @@
 const DisplayController = (game) => {
     const gameGrid = document.querySelector(".game-grid");
     const player = document.querySelectorAll(".player");
+    const resetBtn = document.querySelector(".btn-restart");
 
     const renderBoard = () => {
         gameGrid.replaceChildren();
@@ -24,6 +25,13 @@ const DisplayController = (game) => {
         });
     }
 
+    const resetActivePlayer = () => {
+        player.forEach(el => {
+            el.classList.remove("active");
+        });
+        player[0].classList.add("active");
+    }
+
     const renderStatus = () => {
         const state = game.getState();
         if (!state.gameOver) return;
@@ -40,11 +48,11 @@ const DisplayController = (game) => {
     const initEvents = () => {
         gameGrid.addEventListener("click", (e) => {
             const state = game.getState();
-            if (state.gameOver) return;
-
-            console.log("CLICK", e.target)
             const cell = e.target;
+
+            if (state.gameOver) return;
             if (!cell.classList.contains("cell")) return;
+            if (cell.textContent) return;
 
             const index = cell.dataset.index;
 
@@ -53,11 +61,18 @@ const DisplayController = (game) => {
             renderBoard();
             setActivePlayer();
         });
+
+        resetBtn.addEventListener("click", (e) => {
+            game.resetGame();
+            renderBoard();
+            resetActivePlayer();
+        });
     };
 
     return {
         renderBoard,
         setActivePlayer,
+        resetActivePlayer,
         initEvents
     }
 
