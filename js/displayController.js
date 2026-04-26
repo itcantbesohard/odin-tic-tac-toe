@@ -21,15 +21,32 @@ const DisplayController = (game) => {
         });
     }
 
+    const renderStatus = () => {
+        const state = game.getState();
+
+        if (!state.gameOver) return;
+
+        if (state.result === "draw") {
+            console.log("draw");
+        }
+
+        if (state.result === "win") {
+            console.log(`${state.winner} won!`);
+        }
+    };
+
     const initEvents = () => {
         gameGrid.addEventListener("click", (e) => {
             console.log("CLICK", e.target)
             const cell = e.target;
             if (!cell.classList.contains("cell")) return;
-            //mark
+
             const index = cell.dataset.index;
-            game.playRound(index);
+            const round = game.playRound(index);
+
+            renderStatus();
             renderBoard();
+            setActivePlayer();
         });
     };
 

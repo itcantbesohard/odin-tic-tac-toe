@@ -7,8 +7,11 @@ const GameController = () => {
     const gameBoard = Gameboard();
     let gameOver = false;
     let currentPlayer = player;
+    let winner = null;
+    let result = null;
 
     const getBoard = () => gameBoard.getBoard();
+    const getWinner = () => winner;
 
     const winPatterns = [
         [0, 1, 2],
@@ -46,7 +49,7 @@ const GameController = () => {
 
     const playRound = (index) => {
 
-        if (gameOver) return { status: "gameover" };
+        if (gameOver) return;
 
         //mark
         gameBoard.placeMark(index,
@@ -55,14 +58,17 @@ const GameController = () => {
         //checkwin
         if (checkWin()) {
             gameOver = true;
-            return { status: "win" };
+            winner = currentPlayer.getName();
+            result = "win";
+            return;
         }
 
         //draw
         if (gameBoard.getBoard().every
             (cell => cell !== null)) {
             gameOver = true;
-            return { status: "draw" };
+            result = "draw";
+            return;
         }
 
         switchPlayer();
@@ -72,21 +78,29 @@ const GameController = () => {
             //getRandomMove
             //playMove
         }
-
-        return { status: "continue", currentPlayer }
     }
 
     const resetGame = () => {
         gameOver = false;
+        result = null;
+        winner = null;
         currentPlayer = player;
         gameBoard.resetBoard();
     }
+
+    const getState = () => ({
+        currentPlayer,
+        winner,
+        gameOver,
+        result
+    });
 
     return {
         checkWin,
         switchPlayer,
         playRound,
-        getBoard
+        getBoard,
+        getState
     }
 
 };
