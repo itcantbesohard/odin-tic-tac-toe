@@ -66,6 +66,13 @@ const GameController = () => {
         }
 
         switchPlayer();
+
+        //computer move
+        if (currentPlayer === computer) {
+            //getRandomMove
+            //playMove
+        }
+
         return { status: "continue", currentPlayer }
     }
 
